@@ -103,11 +103,52 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        score = 0;
+        /* score = 0;
         lives = 3;
         enemiesKilled = 0;
         Time.timeScale = 1f;
         if (gameOverPanel) gameOverPanel.SetActive(false);
-        UpdateUI();
+        UpdateUI();*/
+
+
+        // CRITICAL: Unpause the game first!
+        Time.timeScale = 1f;
+
+        // Reset all game state
+        score = 0;
+        lives = 3;
+        enemiesKilled = 0;
+
+        // Hide game over panel
+        if (gameOverPanel) gameOverPanel.SetActive(false);
+
+        // Destroy all enemies, bullets, and collectibles before reloading
+        DestroyAllGameObjects();
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    private void DestroyAllGameObjects()
+    {
+        // Destroy all enemies
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+
+        // Destroy all bullets
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
+        }
+
+        // Destroy all collectibles
+        GameObject[] collectibles = GameObject.FindGameObjectsWithTag("Collectible");
+        foreach (GameObject collectible in collectibles)
+        {
+            Destroy(collectible);
+        }
     }
 }
