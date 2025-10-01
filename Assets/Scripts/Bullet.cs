@@ -20,18 +20,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            // Bullet hit enemy
-            //Enemy enemy = other.GetComponent<Enemy>();
-            //if (enemy)
+            //Bullet hit enemy;
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy)
             {
-                //enemy.TakeDamage(1);
-                //Destroy(gameObject); // Destroy bullet
+                enemy.TakeDamage(1);
+                Destroy(gameObject); // Destroy bullet
             }
         }
 
-        // Destroy bullet if it hits walls or boundaries
+         //Destroy bullet if it hits walls or boundaries
         //if (other.CompareTag("Wall"))
         {
             //Destroy(gameObject);

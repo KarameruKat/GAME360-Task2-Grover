@@ -30,16 +30,16 @@ public class Enemy : MonoBehaviour
     {
         if (player)
         {
-            float distance = Vector2.Distance(transform.position, player.position);
+            float distance = Vector3.Distance(transform.position, player.position);
 
             if (distance <= detectionRange)
             {
-                Vector2 direction = (player.position - transform.position).normalized;
+                Vector3 direction = (player.position - transform.position).normalized;
                 rb.linearVelocity = direction * moveSpeed;
             }
             else
             {
-                rb.linearVelocity = Vector2.zero;
+                rb.linearVelocity = Vector3.zero;
             }
         }
     }
