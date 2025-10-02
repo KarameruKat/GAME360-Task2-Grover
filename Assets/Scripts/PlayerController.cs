@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,10 +20,16 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
 
     private Rigidbody2D rb;
+    private Animator animator;
+    private object context;
+    private Vector2 moveInput;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        animator = GetComponent<Animator>();
+
 
         // Get or add AudioSource component
         audioSource = GetComponent<AudioSource>();
@@ -38,17 +46,32 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
+        rb.linearVelocity = moveInput * moveSpeed;
         HandleShooting();
     }
 
-    private void HandleMovement()
+    public void Move(InputAction.CallbackContext context)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        moveInput = context.ReadValue<Vector2>();
 
-        Vector2 movement = new Vector2(horizontal, vertical).normalized;
-        rb.linearVelocity = movement * moveSpeed;
+
+        animator.SetFloat("InputX", moveInput.x);
+        animator.SetFloat("InputY", moveInput.y);
+
+        if (context.canceled)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
+
+            if (moveInput != Vector2.zero)
+            {
+                animator.SetFloat("LastInputX", moveInput.x);
+                animator.SetFloat("LastInputY", moveInput.y);
+            }
+        }
     }
 
     private void HandleShooting()

@@ -20,10 +20,6 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public TMP_Text scoreText;
 
-    public void StartMenu()
-    {
-        SceneManager.LoadScene("PlayableLevel");
-    }
 
     private void Awake()
     {
@@ -38,10 +34,37 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate GameManagers
         }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RefreshUIReferences();
+        UpdateUI();
+    }
 
     private void Start()
     {
-        UpdateUI();
+       // UpdateUI();
+    }
+
+    private void RefreshUIReferences()
+    {
+        scoreText = GameObject.Find("Score")?.GetComponent<TMP_Text>();
+        livesText = GameObject.Find("Lives")?.GetComponent<TMP_Text>();
+        enemiesKilledText = GameObject.Find("EnemiesKilled")?.GetComponent<TMP_Text>();
+        gameOverPanel = GameObject.Find("GameEndPanel");
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
     }
 
     public void AddScore(int points)
@@ -73,6 +96,7 @@ public class GameManager : MonoBehaviour
     public void quitGame()
     {
         Application.Quit();
+        Debug.Log("Bye Bye!!");
     }
 
     public void replayLevel()
@@ -80,6 +104,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         print("Let's Go Again!");
     }
+
 
     public void CollectiblePickedUp(int value)
     {
@@ -120,22 +145,22 @@ public class GameManager : MonoBehaviour
         enemiesKilled = 0;
 
         // Hide game over panel
-        if (gameOverPanel) gameOverPanel.SetActive(false);
+        //if (gameOverPanel) gameOverPanel.SetActive(false);
 
         // Destroy all enemies, bullets, and collectibles before reloading
-        DestroyAllGameObjects();
+        //DestroyAllGameObjects();
 
         // Reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("PlayableLevel");
     }
     private void DestroyAllGameObjects()
     {
         // Destroy all enemies
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
+       // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //foreach (GameObject enemy in enemies)
+        //{
+            //Destroy(enemy);
+        //}
 
         // Destroy all bullets
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
