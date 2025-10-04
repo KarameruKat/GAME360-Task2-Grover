@@ -8,8 +8,11 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("Shooting")]
-    public GameObject bulletPrefab;
-    public Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform firePoint1;
+    [SerializeField] private Transform firePoint2;
+    [SerializeField] private Transform firePoint3;
     public int bulletCount;
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
@@ -18,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip CoinSound;
     private AudioSource audioSource;
+
+
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -80,12 +85,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
         {
             FireBullet();
-            for (int i = 0; i < bulletCount; i++)
-            {
-                GameObject bulletClone = (GameObject)Instantiate(bulletPrefab, transform.position, transform.rotation);
-                Destroy(bulletClone, 1f);
-                nextFireTime = Time.time + fireRate;
-            }
+            nextFireTime = Time.time + fireRate;
         }
 
     }
@@ -93,16 +93,33 @@ public class PlayerController : MonoBehaviour
     private void FireBullet()
     {
         if (GameManager.Instance.score > 400 && GameManager.Instance.score < 1000)
-            fireRate = 0.3f;
-        if (GameManager.Instance.score > 900)
-            fireRate = 0.1f;
-        if (bulletPrefab && firePoint)
         {
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            fireRate = 0.3f;
         }
 
+        if (GameManager.Instance.score > 900)
+        {
+            Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
+            Debug.Log("Extra Bullet");
+        }
+
+        if (GameManager.Instance.score > 1500)
+        { 
+            Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
+            Debug.Log("Extra Bullet");
+        }
+
+            if (GameManager.Instance.score > 2500)
+        {
+            Instantiate(bulletPrefab, firePoint3.position, firePoint3.rotation);
+            Debug.Log("Extra Bullet");
+        }
+
+        if (bulletPrefab && firePoint)
+            { Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
         // Play shoot sound effect
-        //audioSource.PlayOneShot(shootSound);
+        audioSource.PlayOneShot(shootSound);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -114,14 +131,14 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        //if (other.CompareTag("Collectible"))
+        if (other.CompareTag("Collectible"))
         {
             // Player collected an item
-            //Collectible collectible = other.GetComponent<Collectible>();
-            //if (collectible)
+            Collectible collectible = other.GetComponent<Collectible>();
+            if (collectible)
             {
-                //audioSource.PlayOneShot(CoinSound);
-                //Destroy(other.gameObject);
+                audioSource.PlayOneShot(CoinSound);
+                Destroy(other.gameObject);
             }
         }
     }

@@ -4,7 +4,6 @@ public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
     public float speed = 10f;
-    public int bulletsPerShot = 3;
     public float lifetime = 3f;
 
     private Rigidbody2D rb;
@@ -32,9 +31,9 @@ public class Bullet : MonoBehaviour
         }
 
          //Destroy bullet if it hits walls or boundaries
-        //if (other.CompareTag("Wall"))
+        if (other.CompareTag("Wall"))
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

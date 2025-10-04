@@ -11,13 +11,17 @@ public class GameManager : MonoBehaviour
     [Header("Game Stats")]
     public int score = 0;
     public int lives = 3;
+    public GameObject coinPrefab, newCoin;
     public int enemiesKilled = 0;
+    public float coinSpawnRate = 2f;
+    private float nextCoinTime = 0f;
 
     [Header("UI References")]
     //public Text scoreText;
     public TMP_Text livesText;
     public TMP_Text enemiesKilledText;
     public GameObject gameOverPanel;
+    public GameObject gameWonPanel;
     public TMP_Text scoreText;
 
 
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour
     {
         RefreshUIReferences();
         UpdateUI();
+        GenerateCoins();
     }
 
     private void Start()
@@ -61,9 +66,14 @@ public class GameManager : MonoBehaviour
         livesText = GameObject.Find("Lives")?.GetComponent<TMP_Text>();
         enemiesKilledText = GameObject.Find("EnemiesKilled")?.GetComponent<TMP_Text>();
         gameOverPanel = GameObject.Find("GameEndPanel");
+        gameWonPanel = GameObject.Find("GameWonPanel");
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+        if (gameWonPanel != null)
+        {
+            gameWonPanel.SetActive(false);
         }
     }
 
@@ -72,6 +82,22 @@ public class GameManager : MonoBehaviour
         score += points;
         Debug.Log($"Score increased by {points}. Total: {score}");
         UpdateUI();
+
+        if (score > 5000)
+            PlayerWon();
+
+        if (Time.time >= nextCoinTime)
+        {
+            GenerateCoins();
+            nextCoinTime = Time.time + coinSpawnRate;
+        }
+    }
+
+    public void PlayerWon()
+    {
+        gameWonPanel.SetActive(true);
+        Time.timeScale = 0f; // Pause the game
+        Debug.Log("You win!");
     }
 
     public void LoseLife()
@@ -89,7 +115,7 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemiesKilled++;
-        AddScore(100); // 100 points per enemy
+        AddScore(50); // 100 points per enemy
         Debug.Log($"Enemy killed! Total enemies defeated: {enemiesKilled}");
     }
 
@@ -152,6 +178,17 @@ public class GameManager : MonoBehaviour
 
         // Reload the current scene
         SceneManager.LoadScene("PlayableLevel");
+    }
+
+    public void GenerateCoins()
+    {
+
+
+        // int randomIndex = Random.Range(0, spawnPoints.Length);
+
+        newCoin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        //newCoin.transform.position.x = (Random.Range(-8f, 8f), Random.Range(-2,4), transform.position.);
+        newCoin.transform.position = new Vector2(Random.Range(-15f, 15f), Random.Range(-4, 8));
     }
     private void DestroyAllGameObjects()
     {

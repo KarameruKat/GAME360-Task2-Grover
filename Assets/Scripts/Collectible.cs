@@ -3,8 +3,8 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     [Header("Collectible Settings")]
-    public int value = 50;
-    public float rotationSpeed = 90f;
+    public int value = 25;
+    public float rotationSpeed = 0f;
 
     private void Update()
     {

@@ -6,7 +6,9 @@ public enum SoundType
 {
     SHOOT,
     COIN,
-    DIE
+    DIE,
+    LOSE,
+    WIN
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -25,7 +27,7 @@ public class AudioManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    public static void PlaySound(SoundType sound, float volume = 1)
+    public static void PlaySound(SoundType sound, float volume = 3)
     {
         instance.audioSource.PlayOneShot(instance.soundList[(int)sound], volume);
     }
