@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
@@ -97,19 +96,19 @@ public class PlayerController : MonoBehaviour
             fireRate = 0.3f;
         }
 
-        if (GameManager.Instance.score > 900)
+        if (GameManager.Instance.score > 1500)
         {
             Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
             Debug.Log("Extra Bullet");
         }
 
-        if (GameManager.Instance.score > 1500)
+        if (GameManager.Instance.score > 4000)
         { 
             Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
             Debug.Log("Extra Bullet");
         }
 
-            if (GameManager.Instance.score > 2500)
+            if (GameManager.Instance.score > 8000)
         {
             Instantiate(bulletPrefab, firePoint3.position, firePoint3.rotation);
             Debug.Log("Extra Bullet");

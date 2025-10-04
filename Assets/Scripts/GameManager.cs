@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Stats")]
     public int score = 0;
-    public int lives = 3;
+    public int lives = 5;
     public GameObject coinPrefab, newCoin;
     public int enemiesKilled = 0;
     public float coinSpawnRate = 2f;
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     {
         RefreshUIReferences();
         UpdateUI();
-        GenerateCoins();
     }
 
     private void Start()
@@ -83,7 +82,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Score increased by {points}. Total: {score}");
         UpdateUI();
 
-        if (score > 5000)
+        if (score > 10000)
             PlayerWon();
 
         if (Time.time >= nextCoinTime)
@@ -115,7 +114,7 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemiesKilled++;
-        AddScore(50); // 100 points per enemy
+        AddScore(25); // 100 points per enemy
         Debug.Log($"Enemy killed! Total enemies defeated: {enemiesKilled}");
     }
 
@@ -167,7 +166,7 @@ public class GameManager : MonoBehaviour
 
         // Reset all game state
         score = 0;
-        lives = 3;
+        lives = 5;
         enemiesKilled = 0;
 
         // Hide game over panel
@@ -182,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void GenerateCoins()
     {
-
+        //Permission received from Allie Metzger and instructor to look at and use code
 
         // int randomIndex = Random.Range(0, spawnPoints.Length);
 
