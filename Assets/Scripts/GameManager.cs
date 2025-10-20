@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameWonPanel;
     public TMP_Text scoreText;
 
+    //private int score = 0;
+    private float timeRemaining;
+    private bool isGameActive = true;
+    private bool isPaused = false;
 
     private void Awake()
     {
@@ -56,7 +60,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //InitializeGame();
        // UpdateUI();
+
     }
 
     private void RefreshUIReferences()
@@ -212,4 +218,9 @@ public class GameManager : MonoBehaviour
             Destroy(collectible);
         }
     }
+
+    public int GetScore() => score;
+    public float GetTimeRemaining() => timeRemaining;
+    public bool IsGameActive() => isGameActive;
+    public bool IsPaused() => isPaused;
 }

@@ -11,10 +11,18 @@ public class Enemy : MonoBehaviour
 
     private Transform player;
     private Rigidbody2D rb;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
+    private EnemyState currentState;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (animator == null) animator = GetComponent<Animator>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //ChangeState(new WaspFly);
 
         // Find player
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -62,25 +70,5 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Custom 2D circle for older Unity versions
-        Gizmos.color = Color.red;
-
-        int segments = 32;
-        float angle = 0f;
-        Vector3 lastPos = transform.position + new Vector3(detectionRange, 0, 0);
-
-        for (int i = 1; i <= segments; i++)
-        {
-            angle = (i * 360f / segments) * Mathf.Deg2Rad;
-            Vector3 newPos = transform.position + new Vector3(
-                Mathf.Cos(angle) * detectionRange,
-                Mathf.Sin(angle) * detectionRange,
-                0
-            );
-            Gizmos.DrawLine(lastPos, newPos);
-            lastPos = newPos;
-        }
-    }
+    
 }

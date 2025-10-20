@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public int bulletCount;
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
+    private bool _fireSingle;
 
     [Header("Audio")]
     public AudioClip shootSound;
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             FireBullet();
             nextFireTime = Time.time + fireRate;
+            _fireSingle = true;
         }
 
     }
