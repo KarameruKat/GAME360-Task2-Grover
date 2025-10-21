@@ -58,10 +58,14 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void Start()
+    private void Update()
     {
         //InitializeGame();
-       // UpdateUI();
+        // UpdateUI();
+        if (isGameActive && !isPaused)
+        {
+            timeRemaining += Time.deltaTime;
+        }
 
     }
 
@@ -124,6 +128,8 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Enemy killed! Total enemies defeated: {enemiesKilled}");
     }
 
+
+
     public void quitGame()
     {
         Application.Quit();
@@ -166,6 +172,7 @@ public class GameManager : MonoBehaviour
         if (gameOverPanel) gameOverPanel.SetActive(false);
         UpdateUI();*/
 
+        EventManager.ClearAllEvents();
 
         // CRITICAL: Unpause the game first!
         Time.timeScale = 1f;

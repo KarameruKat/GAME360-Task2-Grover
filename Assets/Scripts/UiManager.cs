@@ -6,13 +6,13 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public TMP_Text scoreText;
-    public TMP_Text timerText;
-    public TMP_Text stateText;
-    public TMP_Text coinText;
+    public TMP_Text timeText;
+    public TMP_Text livesText;
+    public TMP_Text enemiesKilledText;
     public GameObject gameOverPanel;
     public GameObject victoryPanel;
 
-    private int coinCount = 0;
+    private int enemiesKilledCount = 0;
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class UIManager : MonoBehaviour
 
         // Subscribe to events (OBSERVER PATTERN)
         EventManager.Subscribe("OnScoreChanged", UpdateScore);
-        EventManager.Subscribe("OnPlayerStateChanged", UpdateStateDisplay);
+        EventManager.Subscribe("OnLivesChanged", UpdateLives);
         EventManager.Subscribe("OnGameOver", ShowGameOver); // GAME OVER
         EventManager.Subscribe("OnLevelComplete", ShowVictory); // VICTORY
-        EventManager.Subscribe("OnCoinCollected", UpdateCoinCount);
+        EventManager.Subscribe("OnEnemiesKilled", UpdateEnemiesKilled);
 
         // Initialize
         if (gameOverPanel != null)
@@ -38,21 +38,21 @@ public class UIManager : MonoBehaviour
             Debug.Log("Victory Panel disabled");
         }
 
-        if (coinText != null)
+        if (enemiesKilledText != null)
         {
-            coinText.text = "Coins: 0";
+            enemiesKilledText.text = "Wasps Defeated: 0";
         }
     }
 
     void Update()
     {
         // Update timer
-        if (timerText && GameManager.Instance != null)
+        if (timeText && GameManager.Instance != null)
         {
             float time = GameManager.Instance.GetTimeRemaining();
             int minutes = Mathf.FloorToInt(time / 60);
             int seconds = Mathf.FloorToInt(time % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
 
@@ -60,10 +60,10 @@ public class UIManager : MonoBehaviour
     {
         // Unsubscribe to prevent errors on scene change
         EventManager.Unsubscribe("OnScoreChanged", UpdateScore);
-        EventManager.Unsubscribe("OnPlayerStateChanged", UpdateStateDisplay);
+        EventManager.Unsubscribe("OnLivesChanged", UpdateLives);
         EventManager.Unsubscribe("OnGameOver", ShowGameOver);
         EventManager.Unsubscribe("OnLevelComplete", ShowVictory);
-        EventManager.Unsubscribe("OnCoinCollected", UpdateCoinCount);
+        EventManager.Unsubscribe("OnEnemiesKilled", UpdateEnemiesKilled);
     }
 
     void UpdateScore(object scoreData)
@@ -74,20 +74,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void UpdateStateDisplay(object stateData)
+    void UpdateLives(object stateData)
     {
-        if (stateText != null)
+        if (livesText != null)
         {
-            stateText.text = "State: " + stateData.ToString();
+            livesText.text = "Lives: " + stateData.ToString();
         }
     }
 
-    void UpdateCoinCount(object coinValue)
+    void UpdateEnemiesKilled(object coinValue)
     {
-        coinCount++;
-        if (coinText != null)
+        enemiesKilledCount++;
+        if (enemiesKilledText != null)
         {
-            coinText.text = "Coins: " + coinCount;
+            enemiesKilledText.text = "Wasps Defeated: " + enemiesKilledCount;
         }
     }
 
@@ -139,13 +139,14 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            coinCount = 0;
+
+            enemiesKilledCount = 0;
             GameManager.Instance.RestartGame();
         }
     }
 
-    public int GetCoinCount()
+    public int GetEnemiesKilled()
     {
-        return coinCount;
+        return enemiesKilledCount;
     }
 }
