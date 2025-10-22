@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,19 +23,20 @@ public class PlayerController : MonoBehaviour
     public AudioClip CoinSound;
     private AudioSource audioSource;
 
-
+    private PlayerState currentState;
 
     private Rigidbody2D rb;
-    private Animator animator;
-    private object context;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
 
-    private void Start()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (animator == null) animator = GetComponent<Animator>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
 
-        animator = GetComponent<Animator>();
-
+        ChangeState(new PlayerIdleState());
 
         // Get or add AudioSource component
         audioSource = GetComponent<AudioSource>();
@@ -53,6 +55,21 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = moveInput * moveSpeed;
         HandleShooting();
+
+        if (currentState != null)
+        {
+            currentState.UpdateState(this);
+        }
+    }
+    public void ChangeState(PlayerState newState)
+    {
+        if (currentState != null)
+        {
+            currentState.ExitState(this);
+        }
+
+        currentState = newState;
+        currentState.EnterState(this);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -79,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleShooting()
+    public void HandleShooting()
     {
 
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
