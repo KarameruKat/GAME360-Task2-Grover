@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             FireBullet();
             nextFireTime = Time.time + fireRate;
-            _fireSingle = true;
+            //_fireSingle = true;
         }
 
     }

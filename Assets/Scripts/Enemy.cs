@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
         if (animator == null) animator = GetComponent<Animator>();
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //ChangeState(new WaspFly);
+        ChangeState(new EnemyFlyState());
 
         // Find player
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -32,6 +33,19 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         ChasePlayer();
+
+        if (currentState != null)
+        {
+            currentState.UpdateState(this);
+        }
+    }
+
+    public void ChangeState(EnemyState newState)
+    {
+        if (currentState != null)
+        {
+            currentState.ExitState(this);
+        }
     }
 
     private void ChasePlayer()
@@ -58,7 +72,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+           Die();
         }
     }
 
@@ -67,7 +81,9 @@ public class Enemy : MonoBehaviour
         // This is where Singleton shines!
         // Any enemy can easily notify the GameManager
         GameManager.Instance.EnemyKilled();
-        Destroy(gameObject);
+        animator.SetTrigger("death");
+        moveSpeed = 0f;
+        Destroy(gameObject, (float).5);
     }
 
     
