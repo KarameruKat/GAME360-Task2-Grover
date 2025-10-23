@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerState currentState;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     private Vector2 moveInput;
@@ -80,20 +80,20 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("InputX", moveInput.x);
         animator.SetFloat("InputY", moveInput.y);
 
-        if (context.canceled)
-        {
-            animator.SetBool("isWalking", false);
-        }
-        else
-        {
-            animator.SetBool("isWalking", true);
+        //if (context.canceled)
+        //{
+            //animator.SetBool("isWalking", false);
+        //}
+        //else
+        //{
+            //animator.SetBool("isWalking", true);
 
-            if (moveInput != Vector2.zero)
-            {
-                animator.SetFloat("LastInputX", moveInput.x);
-                animator.SetFloat("LastInputY", moveInput.y);
-            }
-        }
+            //if (moveInput != Vector2.zero)
+            //{
+                //animator.SetFloat("LastInputX", moveInput.x);
+                //animator.SetFloat("LastInputY", moveInput.y);
+            //}
+        //}
     }
 
     public void HandleShooting()

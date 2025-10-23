@@ -9,6 +9,9 @@ public class NPCScript : MonoBehaviour
     public TMP_Text dialogueText;
     public string[] dialogue;
     private int index;
+    public Animator animator;
+    private AudioSource audioSource;
+    public AudioClip talking;
 
 
     public GameObject contButton;
@@ -28,20 +31,23 @@ public class NPCScript : MonoBehaviour
             {
                 npcTalk.SetActive(true);
                 StartCoroutine(Typing());
+                
             }
+            audioSource.PlayOneShot(talking);
         }
 
         if (dialogueText.text == dialogue[index])
         {
             contButton.SetActive(true);
         }
-
+        
     }
     public void zeroText()
     {
         dialogueText.text = "";
         index = 0;
         npcTalk.SetActive(false);
+        
     }
 
     IEnumerator Typing()
@@ -74,6 +80,7 @@ public class NPCScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
+            animator.Play("VelvetTalk");
         }
     }
 
@@ -83,6 +90,7 @@ public class NPCScript : MonoBehaviour
         {
             playerIsClose = false;
             zeroText();
+            animator.Play("VelvetIdle");
         }
     }
 }

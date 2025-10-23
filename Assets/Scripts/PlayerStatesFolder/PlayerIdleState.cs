@@ -5,24 +5,38 @@ public class PlayerIdleState : PlayerState
     public override void EnterState(PlayerController player)
     {
         // Safe animation - only plays if everything is set up
-        TryPlayAnimation(player, "Idle");
+        //TryPlayAnimation(player, "Idle");
     }
 
     public override void UpdateState(PlayerController player)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if (horizontal < 0)
+            
+            player.animator.Play("IdleLeft");
+        else if (horizontal > 0)
+            
+            player.animator.Play("IdleRight");
+
+        if (vertical < 0)
+            player.animator.Play("IdleDown");
+        else if (vertical > 0)
+            player.animator.Play("IdleUp");
+
+
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > .2f)
+        //if (Mathf.Abs(horizontal) > 0.1f)
         {
-            player.ChangeState(new JumpingState());
+            player.ChangeState(new PlayerMovingState());
         }
-        else if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+        if (Mathf.Abs(Input.GetAxis("Vertical")) > .2f)
+        //if (Mathf.Abs(vertical) > 0.1f)
         {
-            player.ChangeState(new MovingState());
+            player.ChangeState(new PlayerMovingState());
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            player.Fire();
-        }
     }
 
     public override void ExitState(PlayerController player) { }

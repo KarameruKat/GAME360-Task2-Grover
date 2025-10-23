@@ -3184,6 +3184,9 @@ MonoBehaviour:
   fireRate: 0.5
   shootSound: {fileID: 8300000, guid: 4efd9ac0379a7e44f8158ae33ca1d040, type: 3}
   CoinSound: {fileID: 8300000, guid: 73e31144c9daa004685e17c4a2a34b7d, type: 3}
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!95 &1737031006
 Animator:
   serializedVersion: 7
