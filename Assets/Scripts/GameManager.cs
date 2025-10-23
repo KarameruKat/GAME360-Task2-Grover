@@ -1,7 +1,8 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GameManager : MonoBehaviour
     public int enemiesKilled = 0;
     public float coinSpawnRate = 2f;
     private float nextCoinTime = 0f;
+
+    private AudioSource audioSource;
+
+    [Header("Sounds")]
+    public AudioClip youWin;
+    public AudioClip youLose;
 
     [Header("UI References")]
     //public Text scoreText;
@@ -31,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         // Singleton pattern implementation
         if (Instance == null)
         {
@@ -41,6 +49,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Destroy duplicate GameManagers
         }
+
     }
     private void OnEnable()
     {
@@ -105,6 +114,7 @@ public class GameManager : MonoBehaviour
     public void PlayerWon()
     {
         gameWonPanel.SetActive(true);
+        audioSource.PlayOneShot(youWin);
         Time.timeScale = 0f; // Pause the game
         Debug.Log("You win!");
     }
@@ -160,7 +170,23 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GAME OVER!");
         if (gameOverPanel) gameOverPanel.SetActive(true);
-        Time.timeScale = 0f; // Pause the game
+        audioSource.PlayOneShot(youLose);
+        PauseGame();
+        //Time.timeScale = 0f; // Pause the game
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        //Debug.Log("⏸️ Paused (TimeScale: " + Time.timeScale + ")");
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        //Debug.Log("▶️ Resumed (TimeScale: " + Time.timeScale + ")");
     }
 
     public void RestartGame()
@@ -176,6 +202,8 @@ public class GameManager : MonoBehaviour
 
         // CRITICAL: Unpause the game first!
         Time.timeScale = 1f;
+        isPaused = false;
+        isGameActive = true;
 
         // Reset all game state
         score = 0;

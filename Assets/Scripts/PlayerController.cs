@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = moveInput * moveSpeed;
         HandleShooting();
 
+        if (GameManager.Instance != null && GameManager.Instance.IsPaused())
+        {
+            return; // Skip all input when paused
+        }
+
         if (currentState != null)
         {
             currentState.UpdateState(this);
@@ -77,8 +82,8 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
 
-        animator.SetFloat("InputX", moveInput.x);
-        animator.SetFloat("InputY", moveInput.y);
+        //animator.SetFloat("InputX", moveInput.x);
+        //animator.SetFloat("InputY", moveInput.y);
 
         //if (context.canceled)
         //{

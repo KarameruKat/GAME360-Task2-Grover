@@ -21,6 +21,7 @@ public class NPCScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        audioSource = GetComponent<AudioSource>();
         if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
             if (npcTalk.activeInHierarchy)
@@ -47,6 +48,7 @@ public class NPCScript : MonoBehaviour
         dialogueText.text = "";
         index = 0;
         npcTalk.SetActive(false);
+        audioSource.Stop();
         
     }
 
