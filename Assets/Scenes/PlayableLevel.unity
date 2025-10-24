@@ -735,7 +735,7 @@ Animator:
   m_GameObject: {fileID: 284153415}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d80207fe5861fee4a93531bd7d3accea, type: 2}
+  m_Controller: {fileID: 9100000, guid: 07d03bab3a73ef84faf7b1167cabf332, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b21952c392e2d4aacff70efff79fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   bulletPrefab: {fileID: 2544785404605361744, guid: 1d33c20fca246ae45af66cf17c590948, type: 3}
   firePoint: {fileID: 1945953911}
   firePoint1: {fileID: 1280736799}
@@ -914,6 +914,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  moveInput: {x: 0, y: 0}
 --- !u!82 &284153424
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3183,7 +3184,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631908888}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
-    private Vector2 moveInput;
+    public Vector2 moveInput;
 
     void Start()
     {
@@ -82,23 +82,23 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
 
-        //animator.SetFloat("InputX", moveInput.x);
-        //animator.SetFloat("InputY", moveInput.y);
+        animator.SetFloat("InputX", moveInput.x);
+        animator.SetFloat("InputY", moveInput.y);
 
-        //if (context.canceled)
-        //{
-            //animator.SetBool("isWalking", false);
-        //}
-        //else
-        //{
-            //animator.SetBool("isWalking", true);
+        if (context.canceled)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
 
-            //if (moveInput != Vector2.zero)
-            //{
-                //animator.SetFloat("LastInputX", moveInput.x);
-                //animator.SetFloat("LastInputY", moveInput.y);
-            //}
-        //}
+            if (moveInput != Vector2.zero)
+            {
+                animator.SetFloat("LastInputX", moveInput.x);
+                animator.SetFloat("LastInputY", moveInput.y);
+            }
+        }
     }
 
     public void HandleShooting()
@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.score > 400 && GameManager.Instance.score < 1000)
         {
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             fireRate = 0.3f;
         }
 
