@@ -1,25 +1,36 @@
---------------------------------------------------------
+# Task 3: Complete Patterns Integration
 
-# Task 2: [Pattern Name] Implementation
+# Project Evolution
+# Task 2 Foundation
+- **Singleton Pattern:** GameManager, AudioManager
+- **Basic game with centralized management**
 
-## Student Info
-- Name: Kaitlyn Grover
-- ID: 01278586
+## Task 3 Additions
+## Observer Pattern
+- **EventManager for decoupled communication**
+- **Events implemented:** Updating Score, Updating Lives Count, Updating Enemy Kill Count, Win Panel, and Lose Panel
+- **Observers:** UIManager, Achievements
 
-## Pattern: Singleton
-### Implementation
-[How you implemented it - 100 words]
+## State Machine Pattern
+- **Player States:** Move and Idle
+- **Game States:** Enhanced from Task 2
+- **State transitions:** [Describe key transitions]
 
-### Game Integration
-[How pattern is used - 100 words]
+### Key Integration Points
+**1. Score System:** Singleton → Observer → UI
+**2. Player Actions:** Input → State → Event → Audio
+**3. Game Flow:** GameState → Events → Scene Changes
 
-## Game Description
-- Title: [Game Name]
-- Controls: [List them]
-- Objective: [How to win]
+## Repository Statistics
+- **Total Commits:** [Number]
+- **Task 3 Commits:** [Number]
+- **Lines of Code:** ~[Number]
+- Development Time: 50
 
-## Repository Stats
-- Total Commits: [Number]
-- Development Time: [Hours]
-
---------------------------------------------------------
+## How to Play
+- **Controls:**
+  - WASD -> Move
+  - Left Click -> Shoot
+  - [E] -> Talk to NPCs!
+- **Objective:** Collect bottlecaps and shoot away wasps to earn points. Gather 10,000 points to defeat the wasps once and for all!
+- **New Features:** TALKING! Did you want to finally have a dialogue with someone? Well, now you can! Just press E near a fellow Buggle to talk to them!
