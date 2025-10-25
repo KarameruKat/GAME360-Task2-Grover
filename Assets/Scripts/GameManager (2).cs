@@ -38,11 +38,11 @@ namespace Playertime
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject); // Persist across scenes
+                //DontDestroyOnLoad(gameObject); // Persist across scenes
             }
             else
             {
-                Destroy(gameObject); // Destroy duplicate GameManagers
+                //Destroy(gameObject); // Destroy duplicate GameManagers
             }
         }
         private void OnEnable()

@@ -115,33 +115,38 @@ public class PlayerController : MonoBehaviour
 
     private void FireBullet()
     {
-        if (GameManager.Instance.score > 400 && GameManager.Instance.score < 1000)
-        {
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            fireRate = 0.3f;
-        }
-
-        if (GameManager.Instance.score > 1500)
-        {
-            Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
-            Debug.Log("Extra Bullet");
-        }
-
-        if (GameManager.Instance.score > 4000)
-        { 
-            Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
-            Debug.Log("Extra Bullet");
-        }
-
-            if (GameManager.Instance.score > 8000)
-        {
-            Instantiate(bulletPrefab, firePoint3.position, firePoint3.rotation);
-            Debug.Log("Extra Bullet");
-        }
 
         if (bulletPrefab && firePoint)
-            { Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        {
+
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         }
+
+         if (GameManager.Instance.score > 400 && GameManager.Instance.score < 1000)
+         {
+             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+             fireRate = 0.3f;
+         }
+
+          if (GameManager.Instance.score > 1500)
+          {
+              Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
+              Debug.Log("Extra Bullet");
+          }
+
+          if (GameManager.Instance.score > 4000)
+          { 
+              Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
+              Debug.Log("Extra Bullet");
+          }
+
+              if (GameManager.Instance.score > 8000)
+          {
+              Instantiate(bulletPrefab, firePoint3.position, firePoint3.rotation);
+              Debug.Log("Extra Bullet");
+          }
+
+
         // Play shoot sound effect
         audioSource.PlayOneShot(shootSound);
     }
