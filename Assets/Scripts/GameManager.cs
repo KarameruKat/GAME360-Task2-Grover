@@ -76,6 +76,29 @@ public class GameManager : MonoBehaviour
             timeRemaining += Time.deltaTime;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+
+    }
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        EventManager.TriggerEvent("OnGamePaused");
+        Debug.Log("Game Paused");
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        EventManager.TriggerEvent("OnGameResumed");
+        Debug.Log("Game Resumed");
     }
 
     private void RefreshUIReferences()
@@ -156,6 +179,7 @@ public class GameManager : MonoBehaviour
     public void CollectiblePickedUp(int value)
     {
         AddScore(value);
+        EventManager.TriggerEvent("OnScoreChanged", score);
         Debug.Log($"Collectible picked up worth {value} points!");
     }
 
@@ -173,20 +197,6 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(youLose);
         PauseGame();
         //Time.timeScale = 0f; // Pause the game
-    }
-
-    public void PauseGame()
-    {
-        isPaused = true;
-        Time.timeScale = 0f;
-        //Debug.Log("⏸️ Paused (TimeScale: " + Time.timeScale + ")");
-    }
-
-    public void ResumeGame()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
-        //Debug.Log("▶️ Resumed (TimeScale: " + Time.timeScale + ")");
     }
 
     public void RestartGame()

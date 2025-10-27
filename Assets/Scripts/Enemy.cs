@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        EventManager.Subscribe("OnEnemyHit", Die);
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (animator == null) animator = GetComponent<Animator>();
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,6 +40,12 @@ public class Enemy : MonoBehaviour
             currentState.UpdateState(this);
         }
     }
+
+    private void OnDestroy()
+    {
+        EventManager.Unsubscribe("OnEnemyHit", Die);
+    }
+    
 
     public void ChangeState(EnemyState newState)
     {
@@ -82,6 +89,7 @@ public class Enemy : MonoBehaviour
         // Any enemy can easily notify the GameManager
         GameManager.Instance.EnemyKilled();
         animator.SetTrigger("death");
+        ChangeState(new EnemyFlyState());
         moveSpeed = 0f;
         Destroy(gameObject, (float).5);
     }
