@@ -14,7 +14,7 @@
 ## State Machine Pattern
 - **Player States:** Move and Idle
 - **Game States:** Enhanced from Task 2
-- **State transitions:** [Describe key transitions]
+- **State transitions:** When the idle state detects inputs from the W, A, S, or D keys, the state transitions into the move state. If no input is detected, it returns to the idle state.
 
 ### Key Integration Points
 **1. Score System:** Singleton → Observer → UI
@@ -22,10 +22,10 @@
 **3. Game Flow:** GameState → Events → Scene Changes
 
 ## Repository Statistics
-- **Total Commits:** [Number]
-- **Task 3 Commits:** [Number]
-- **Lines of Code:** ~[Number]
-- Development Time: 50
+- **Total Commits:** 22
+- **Task 3 Commits:** 12
+- **Lines of Code:** ~1,610
+- **Development Time:** 55
 
 ## How to Play
 - **Controls:**
