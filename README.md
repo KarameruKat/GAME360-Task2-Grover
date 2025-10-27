@@ -61,8 +61,8 @@
 **3. Game Flow:** GameState → Events → Scene Changes
 
 ## Repository Statistics
-- **Total Commits:** 24
-- **Task 3 Commits:** 14
+- **Total Commits:** 26
+- **Task 3 Commits:** 16
 - **Lines of Code:** ~1,610
 - **Development Time:** 55
 
