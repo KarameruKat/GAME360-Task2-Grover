@@ -18,6 +18,11 @@ public class NPCScript : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    private void Start()
+    {
+        dialogueText.text = "";
+    }
+
     // Update is called once per frame
     void Update()
     {

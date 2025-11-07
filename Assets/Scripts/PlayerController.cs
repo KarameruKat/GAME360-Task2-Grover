@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
     public void HandleShooting()
     {
 
-        if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
+        if (Input.GetKey(KeyCode.F) && Time.time >= nextFireTime)
         {
             FireBullet();
             nextFireTime = Time.time + fireRate;
