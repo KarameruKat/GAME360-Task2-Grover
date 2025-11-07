@@ -1,6 +1,43 @@
-# Task 3: Complete Patterns Integration
+# <ins>Buggle Quest</ins>
 
-# Project Evolution
+### Game description:
+- In this short and sweet game, play as Rubi, a ruby gold tortoise beetle, who is tasked to save their village from a swarm of parasitic wasps that approach the plains. Get points from collecting shiny soda bottlecaps and defeating the wasps with your trusty slingshot to help save your home and all your friends!
+
+## _Project Evolution_
+
+- **Current status:** Work in Progress
+- **Development timeline:**
+  - <ins>***Week 11:*** *Non-Playable Character Setup*</ins>
+      - Prepare scripts for NPC interaction
+      - Setup locations for NPCs
+      - Plan dialogue/flavor text
+  - <ins>***Week 12:*** *Working With NPCs*</ins>
+      - Polishing code for NPC interactions
+      - Creating NPC assets
+      - Setting up NPC animators
+      - Getting sound effects for interactions
+  - <ins>***Week 13:*** *Fixing Bugs, Adjusting Volume, and New assets*</ins>
+      - Fixing player spawn in walkable level
+      - (If Time Permits) Add new enemy type
+      - (If Time Permits) Add menu option for pause
+      - (If Time Permits) Add secret level
+  - <ins>***Week 14:*** *Polishing*</ins>
+      - Bug fixes
+      - Playtesting
+  - <ins>***Week 15:*** *Final Polish, Documentation, and Beginning Presentation Preparation*</ins>
+      - More bug fixes and optimization
+      - Complete technical documentation
+      - Start presentation materials
+  - <ins>***Week 16:*** *Presentation Preparation*</ins>
+      - Complete presentation materials
+      - Practice demo and Q&A
+
+
+---
+
+
+# _Task 3: Complete Patterns Integration_
+
 # Task 2 Foundation
 - **Singleton Pattern:** GameManager, AudioManager
 - **Basic game with centralized management**
